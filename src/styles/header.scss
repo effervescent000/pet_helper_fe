@@ -1,0 +1,12 @@
+.header {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    background-color: $off-white;
+    padding: .25em;
+    .menu {
+        position: absolute;
+        right: 1em;
+    }   
+    
+}
