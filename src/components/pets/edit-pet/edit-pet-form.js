@@ -14,11 +14,17 @@ import DateField from "../../form-components/date-field";
 const EditPetForm = ({ pet }) => {
     const history = useHistory();
     const types = [
-        <option value="snake">Snake</option>,
-        <option value="lizard">Lizard</option>,
-        <option value="frog">Frog</option>,
-        <option value="toad">Toad</option>,
+        { value: "snake", label: "Snake" },
+        { value: "lizard", label: "Lizard" },
+        { value: "frog", label: "Frog" },
+        { value: "toad", label: "Toad" },
     ];
+    // const types = [
+    //     <option value="snake">Snake</option>,
+    //     <option value="lizard">Lizard</option>,
+    //     <option value="frog">Frog</option>,
+    //     <option value="toad">Toad</option>,
+    // ];
     const typesSnakes = [
         { value: "corn snake", label: "Corn snake" },
         { value: "ball python", label: "Ball python" },
@@ -86,18 +92,27 @@ const EditPetForm = ({ pet }) => {
                         <SelectField
                             name="type"
                             label="Type of animal"
+                            id="type-select"
                             onChange={(event) => {
                                 setFieldValue("type", event.target.value);
                                 setFieldValue("speciesArray", getSpeciesArray(event.target.value));
                             }}
                         >
                             <option value="">---</option>
-                            {types}
+                            {types.map((type) => (
+                                <option key={type.value} value={type.value}>
+                                    {type.label}
+                                </option>
+                            ))}
                         </SelectField>
-                        <SelectField name="species" label="Species">
+                        <SelectField name="species" label="Species" id="species-select">
                             {values.speciesArray &&
                                 values.speciesArray.map((sp) => {
-                                    return <option value={sp.value}>{sp.label}</option>;
+                                    return (
+                                        <option key={sp.value} value={sp.value}>
+                                            {sp.label}
+                                        </option>
+                                    );
                                 })}
                         </SelectField>
                         <TextInput name="weight" label="Weight in grams" />
