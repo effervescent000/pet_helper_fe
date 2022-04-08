@@ -19,7 +19,7 @@ const Header = (props) => {
                 <OffcanvasHeader toggle={toggleOffcanvas}>Menu</OffcanvasHeader>
                 <OffcanvasBody>
                     <div className="nyi">Schedule</div>
-                    <div className="nyi">Add pet</div>
+                    <NavLink to="/pets/new">Add pet</NavLink>
                     <div className="nyi">View pets</div>
                 </OffcanvasBody>
             </Offcanvas>

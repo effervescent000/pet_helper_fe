@@ -17,3 +17,5 @@ describe("Basic loading tests", () => {
         await waitFor(() => expect(screen.getByText(/add pet/i)).toBeInTheDocument());
     });
 });
+
+// TODO test to ensure that the sidebar closes when a link is clicked
