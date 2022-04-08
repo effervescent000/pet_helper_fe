@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { Offcanvas, OffcanvasBody, OffcanvasHeader } from "reactstrap";
 
+import { UserContext } from "../user-context";
+
 const Header = (props) => {
     const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
+    const { loggedIn } = useContext(UserContext);
 
     const toggleOffcanvas = () => {
         setIsOffcanvasOpen(!isOffcanvasOpen);
@@ -18,9 +21,28 @@ const Header = (props) => {
             <Offcanvas direction="end" isOpen={isOffcanvasOpen} toggle={toggleOffcanvas}>
                 <OffcanvasHeader toggle={toggleOffcanvas}>Menu</OffcanvasHeader>
                 <OffcanvasBody>
-                    <div className="nyi">Schedule</div>
-                    <NavLink to="/pets/new">Add pet</NavLink>
-                    <div className="nyi">View pets</div>
+                    {loggedIn ? (
+                        <>
+                            <div className="nyi">Schedule</div>
+                            <NavLink to="/pets/new" onClick={toggleOffcanvas}>
+                                Add pet
+                            </NavLink>
+                            <div className="nyi">View pets</div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="link-wrapper">
+                                <NavLink to="/auth/login" onClick={toggleOffcanvas}>
+                                    Login
+                                </NavLink>
+                            </div>
+                            <div className="link-wrapper">
+                                <NavLink to="/auth/signup" onClick={toggleOffcanvas}>
+                                    Sign up
+                                </NavLink>
+                            </div>
+                        </>
+                    )}
                 </OffcanvasBody>
             </Offcanvas>
         </div>
