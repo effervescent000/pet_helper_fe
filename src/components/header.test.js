@@ -1,4 +1,10 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+    queryByText,
+    render,
+    screen,
+    waitFor,
+    waitForElementToBeRemoved,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { wrapWithMemoryRouter, wrap, wrapWithUserContext } from "../testutils";
@@ -17,6 +23,26 @@ describe("Basic loading tests", () => {
             userEvent.click(menuButton);
             await waitFor(() => expect(screen.getByText(/sign up/i)).toBeInTheDocument());
         });
+        describe("Offcanvas closes properly", () => {
+            beforeEach(() => {
+                userEvent.click(screen.getByText(/menu/i));
+            });
+            test("x button closes", async () => {
+                const closeButton = screen.getByRole("button", { name: /close/i });
+                userEvent.click(closeButton);
+                expect(screen.queryByText(/sign up/)).toBeNull();
+            });
+            test("Sign up link closes", () => {
+                const link = screen.getByRole("link", { name: /sign up/i });
+                userEvent.click(link);
+                expect(screen.queryByText(/sign up/)).toBeNull();
+            });
+            test("Login link closes", () => {
+                const link = screen.getByRole("link", { name: /login/i });
+                userEvent.click(link);
+                expect(screen.queryByText(/sign up/)).toBeNull();
+            });
+        });
     });
     describe("Loads while logged in", () => {
         beforeEach(() => {
@@ -34,6 +60,21 @@ describe("Basic loading tests", () => {
             const menuButton = screen.getByText(/menu/i);
             userEvent.click(menuButton);
             await waitFor(() => expect(screen.getByText(/add pet/i)).toBeInTheDocument());
+        });
+        describe("Offcanvas closes properly", () => {
+            beforeEach(() => {
+                userEvent.click(screen.getByText(/menu/i));
+            });
+            test("x button closes", async () => {
+                const closeButton = screen.getByRole("button", { name: /close/i });
+                userEvent.click(closeButton);
+                expect(screen.queryByText(/add pet/)).toBeNull();
+            });
+            test("add pet link closes", () => {
+                const link = screen.getByRole("link", { name: /add pet/i });
+                userEvent.click(link);
+                expect(screen.queryByText(/add pet/)).toBeNull();
+            });
         });
     });
 });
