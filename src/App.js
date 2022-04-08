@@ -8,6 +8,7 @@ import "./styles/main.scss";
 import Header from "./components/header";
 import DashboardPage from "./components/dashboard.js/dashboard-page";
 import EditPetPage from "./components/edit-pet/edit-pet-page";
+import AuthPage from "./components/auth/auth-page";
 import { UserContext } from "./user-context";
 
 function App() {
@@ -30,6 +31,12 @@ function App() {
                             </Route>
                             <Route path="/pets/:permalink">
                                 <EditPetPage />
+                            </Route>
+                            <Route path="/auth/signup">
+                                <AuthPage status="SIGNUP" />
+                            </Route>
+                            <Route path="/auth/login">
+                                <AuthPage status="LOGIN" />
                             </Route>
                         </Switch>
                     </div>
