@@ -1,13 +1,7 @@
-import {
-    queryByText,
-    render,
-    screen,
-    waitFor,
-    waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { wrapWithMemoryRouter, wrap, wrapWithUserContext } from "../testutils";
+import { wrapWithMemoryRouter, wrapWithUserContext } from "../testutils";
 import Header from "./header";
 
 describe("Basic loading tests", () => {
@@ -78,5 +72,3 @@ describe("Basic loading tests", () => {
         });
     });
 });
-
-// TODO test to ensure that the sidebar closes when a link is clicked
