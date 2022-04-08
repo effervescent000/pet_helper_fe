@@ -5,11 +5,11 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 
-import TextInput from "../form-components/text-input";
-import SelectField from "../form-components/select-field";
-import CheckboxInput from "../form-components/checkbox-input";
-import TextArea from "../form-components/textarea";
-import DateField from "../form-components/date-field";
+import TextInput from "../../form-components/text-input";
+import SelectField from "../../form-components/select-field";
+import CheckboxInput from "../../form-components/checkbox-input";
+import TextArea from "../../form-components/textarea";
+import DateField from "../../form-components/date-field";
 
 const EditPetForm = ({ pet }) => {
     const history = useHistory();
