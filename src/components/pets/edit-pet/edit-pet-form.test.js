@@ -16,5 +16,8 @@ describe("Test loading create pet", () => {
         userEvent.selectOptions(typeSelect, screen.getByRole("option", { name: "Snake" }));
         await waitFor(() => expect(typeSelect).toHaveDisplayValue("Snake"));
         await waitFor(() => expect(speciesSelect).toHaveDisplayValue("Corn snake"));
+
+        userEvent.selectOptions(speciesSelect, screen.getByRole("option", { name: "Ball python" }));
+        await waitFor(() => expect(speciesSelect).toHaveDisplayValue("Ball python"));
     });
 });

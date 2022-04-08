@@ -11,6 +11,7 @@ import Header from "./components/header";
 import DashboardPage from "./components/dashboard.js/dashboard-page";
 import EditPetPage from "./components/pets/edit-pet/edit-pet-page";
 import AuthPage from "./components/auth/auth-page";
+import ViewPetsPage from "./components/pets/view-pets/view-pet-page";
 import { UserContext } from "./user-context";
 
 function App() {
@@ -50,6 +51,9 @@ function App() {
                             </Route>
                             <Route path="/pets/:permalink">
                                 <EditPetPage />
+                            </Route>
+                            <Route path="/pets">
+                                <ViewPetsPage />
                             </Route>
                             <Route path="/auth/signup">
                                 <AuthPage status="SIGNUP" />
