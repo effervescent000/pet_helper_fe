@@ -9,7 +9,7 @@ const ViewPetsPage = (props) => {
     const [filteredPets, setFilteredPets] = useState([]);
     const [displayedPets, setDisplayedPets] = useState([]);
     const [page, setPage] = useState(0);
-    const [petsPerPage, setPetsPerPage] = useState(10);
+    const [petsPerPage, setPetsPerPage] = useState(5);
 
     useEffect(() => {
         axios
@@ -33,8 +33,8 @@ const ViewPetsPage = (props) => {
 
     return (
         <div className="view-pets-wrapper">
-            {displayedPets.map((pet) => (
-                <PetCard key={pet.id} pet={pet} />
+            {displayedPets.map((pet, index) => (
+                <PetCard key={pet.id} pet={pet} index={index} />
             ))}
         </div>
     );
