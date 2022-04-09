@@ -3,6 +3,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 import PetCard from "./pet-card";
+import Pagination from "../../pagination";
 
 const ViewPetsPage = (props) => {
     const [allPets, setAllPets] = useState([]);
@@ -31,8 +32,18 @@ const ViewPetsPage = (props) => {
         setDisplayedPets(filteredPets.slice(petsPerPage * page, petsPerPage * page + petsPerPage));
     }, [filteredPets]);
 
+    const onPageChange = (newPage) => {
+        setPage(newPage);
+    };
+
     return (
         <div className="view-pets-wrapper">
+            <Pagination
+                currentPage={page}
+                pageSize={petsPerPage}
+                onPageChange={onPageChange}
+                totalCount={filteredPets.length}
+            />
             {displayedPets.map((pet, index) => (
                 <PetCard key={pet.id} pet={pet} index={index} />
             ))}

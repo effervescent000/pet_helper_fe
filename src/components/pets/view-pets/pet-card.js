@@ -1,11 +1,18 @@
 import React from "react";
 
-const PetCard = ({ pet }) => {
+const PetCard = ({ pet, index }) => {
     return (
         <div className="pet-wrapper">
-            <span>{pet.name}</span>
-            <span>{pet.type}</span>
-            <span>{pet.species}</span>
+            <div className="image-wrapper">
+                {/* image goes here */}
+                <span>#{index}</span>
+            </div>
+            <div className="text-wrapper">
+                <span>{pet.name}</span>
+                <span>
+                    {pet.type} {pet.species}
+                </span>
+            </div>
         </div>
     );
 };
