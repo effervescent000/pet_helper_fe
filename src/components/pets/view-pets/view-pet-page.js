@@ -4,13 +4,12 @@ import Cookies from "js-cookie";
 
 import PetCard from "./pet-card";
 import Pagination from "../../pagination";
-import SelectField from "../../form-components/select-field";
 
 const ViewPetsPage = (props) => {
     const [allPets, setAllPets] = useState([]);
     const [filteredPets, setFilteredPets] = useState([]);
     const [displayedPets, setDisplayedPets] = useState([]);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [petsPerPage, setPetsPerPage] = useState(3);
 
     useEffect(() => {
@@ -30,8 +29,10 @@ const ViewPetsPage = (props) => {
     }, [allPets]);
 
     useEffect(() => {
-        setDisplayedPets(filteredPets.slice(petsPerPage * page, petsPerPage * page + petsPerPage));
-    }, [filteredPets, petsPerPage]);
+        setDisplayedPets(
+            filteredPets.slice(petsPerPage * (page - 1), petsPerPage * (page - 1) + petsPerPage)
+        );
+    }, [filteredPets, petsPerPage, page]);
 
     const onPageChange = (newPage) => {
         setPage(newPage);
