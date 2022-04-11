@@ -29,4 +29,8 @@ describe("Tests for pagination component with different page totals", () => {
         // expect to see "< 1 ... 7 (8) 9 ... 17 >"
         expect(screen.getAllByRole("listitem")).toHaveLength(props.siblingCount * 2 + 1 + 6);
     });
+    test("Testing 'selected' class attribute", () => {
+        render(<Pagination {...props} />);
+        expect(screen.getByText("1")).toHaveClass("selected");
+    });
 });
