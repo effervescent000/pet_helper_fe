@@ -60,9 +60,11 @@ const ViewPetsPage = (props) => {
                 />
             </div>
 
-            {displayedPets.map((pet, index) => (
-                <PetCard key={pet.id} pet={pet} index={index} />
-            ))}
+            <div className="pets-wrapper">
+                {displayedPets.map((pet, index) => (
+                    <PetCard key={pet.id} pet={pet} index={index} />
+                ))}
+            </div>
         </div>
     );
 };
