@@ -16,4 +16,11 @@ describe("Basic rendering tests", () => {
         );
         expect(screen.getByText(new RegExp(pet.name))).toBeInTheDocument();
     });
+    test("Invalid pet renders", async () => {
+        axios.get.mockRejectedValue({ response: { data: { error: "invalid pet" } } });
+        await waitFor(() =>
+            render(wrapWithMemoryRouter(<PetPage />, { initialEntries: [`/pets/1000`] }))
+        );
+        expect(screen.getByText(/invalid pet/)).toBeInTheDocument();
+    });
 });
