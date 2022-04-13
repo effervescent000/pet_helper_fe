@@ -1,0 +1,7 @@
+.view-pets-wrapper {
+    .pets-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: .25em;
+    }
+}

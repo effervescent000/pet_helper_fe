@@ -24,10 +24,16 @@ const Header = (props) => {
                     {loggedIn ? (
                         <>
                             <div className="nyi">Schedule</div>
-                            <NavLink to="/pets/new" onClick={toggleOffcanvas}>
-                                Add pet
-                            </NavLink>
-                            <div className="nyi">View pets</div>
+                            <div className="link-wrapper">
+                                <NavLink to="/pets/new" onClick={toggleOffcanvas}>
+                                    Add pet
+                                </NavLink>
+                            </div>
+                            <div className="link-wrapper">
+                                <NavLink to="/pets" onClick={toggleOffcanvas}>
+                                    View pets
+                                </NavLink>
+                            </div>
                         </>
                     ) : (
                         <>

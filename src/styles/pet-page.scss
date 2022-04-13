@@ -1,0 +1,11 @@
+.pet-page {
+    .manage-wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+    .pet-stats {
+        display: flex;
+        flex-direction: column;
+    }
+    
+}
