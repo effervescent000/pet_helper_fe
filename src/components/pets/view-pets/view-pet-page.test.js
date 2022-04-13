@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import axios from "axios";
 
 import ViewPetsPage from "./view-pet-page";
-import { petArray } from "../../../testutils";
+import { petArray, wrapWithMemoryRouter } from "../../../testutils";
 
 jest.mock("axios");
 
@@ -12,11 +12,11 @@ describe("View pets testing", () => {
         axios.get.mockResolvedValue({
             data: petArray,
         });
-        await waitFor(() => render(<ViewPetsPage />));
+        await waitFor(() => render(wrapWithMemoryRouter(<ViewPetsPage />)));
     });
     test("displays pets properly", async () => {
-        expect(await screen.findByText(petArray[0].name)).toBeInTheDocument();
-        expect(await screen.findByText(petArray[2].name)).toBeInTheDocument();
+        expect(screen.getByText(petArray[0].name)).toBeInTheDocument();
+        expect(screen.getByText(petArray[2].name)).toBeInTheDocument();
     });
     test("pageSize select works", async () => {
         const pageSizeSelect = screen.getByRole("combobox");
