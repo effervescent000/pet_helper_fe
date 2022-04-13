@@ -2,8 +2,8 @@ import { MemoryRouter, BrowserRouter } from "react-router-dom";
 
 import { UserContext } from "./user-context";
 
-const wrapWithMemoryRouter = (ui) => {
-    return <MemoryRouter>{ui}</MemoryRouter>;
+const wrapWithMemoryRouter = (ui, props = {}) => {
+    return <MemoryRouter {...props}>{ui}</MemoryRouter>;
 };
 
 const wrapWithBrowserRouter = (ui, { route = "/" } = {}) => {
