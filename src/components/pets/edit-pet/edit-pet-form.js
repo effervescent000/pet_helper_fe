@@ -68,9 +68,16 @@ const EditPetForm = ({ pet }) => {
             enableReinitialize
             onSubmit={(values) => {
                 if (pet) {
-                    // send to PUT endpoint
+                    axios
+                        .put(`${process.env.REACT_APP_DOMAIN}/pets/${pet.id}`, values, {
+                            withCredentials: true,
+                            headers: { "X-CSRF-TOKEN": Cookies.get("csrf_access_token") },
+                        })
+                        .then((response) => {
+                            history.push("/");
+                        })
+                        .catch((error) => console.log(error.response));
                 } else {
-                    console.log(values);
                     axios
                         .post(`${process.env.REACT_APP_DOMAIN}/pets/`, values, {
                             withCredentials: true,
