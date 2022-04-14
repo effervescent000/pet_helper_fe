@@ -53,11 +53,11 @@ function App() {
                             <Route path="/pets/new">
                                 <EditPetPage />
                             </Route>
-                            <Route path="/pets/:permalink">
-                                <PetPage />
-                            </Route>
                             <Route path="/pets/:permalink/edit">
                                 <EditPetPage />
+                            </Route>
+                            <Route path="/pets/:permalink">
+                                <PetPage />
                             </Route>
                             <Route path="/pets">
                                 <ViewPetsPage />
