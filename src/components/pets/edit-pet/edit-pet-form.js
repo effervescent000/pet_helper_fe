@@ -74,7 +74,7 @@ const EditPetForm = ({ pet }) => {
                             headers: { "X-CSRF-TOKEN": Cookies.get("csrf_access_token") },
                         })
                         .then((response) => {
-                            history.push("/");
+                            history.push("/pets");
                         })
                         .catch((error) => console.log(error.response));
                 } else {
@@ -84,7 +84,7 @@ const EditPetForm = ({ pet }) => {
                             headers: { "X-CSRF-TOKEN": Cookies.get("csrf_access_token") },
                         })
                         .then((response) => {
-                            history.push("/");
+                            history.push("/pets");
                         })
                         .catch((error) => console.log(error.response));
                 }
