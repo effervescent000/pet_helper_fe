@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 import { formatDate } from "../../../utils";
 
 const PetPage = (props) => {
+    const history = useHistory();
     const { permalink } = useParams();
     const [pet, setPet] = useState({});
     const [loading, setLoading] = useState(true);
@@ -27,6 +28,22 @@ const PetPage = (props) => {
             });
     }, [permalink]);
 
+    const handleClick = (event) => {
+        if (event.target.name === "back-btn") {
+            history.push("/pets");
+        } else if (event.target.name === "delete-btn") {
+            axios
+                .delete(`${process.env.REACT_APP_DOMAIN}/pets/${pet.id}`, {
+                    withCredentials: true,
+                    headers: { "X-CSRF-TOKEN": Cookies.get("csrf_access_token") },
+                })
+                .then((response) => {
+                    history.push("/pets");
+                })
+                .catch((error) => console.log(error.response));
+        }
+    };
+
     return (
         <div className="pet-page">
             {loading ? (
@@ -39,7 +56,9 @@ const PetPage = (props) => {
                         <Link to={`/pets/${pet.id}/edit`} className="button-styled-link">
                             Edit pet
                         </Link>
-                        <button>Delete pet</button>
+                        <button name="delete-btn" onClick={handleClick}>
+                            Delete pet
+                        </button>
                     </div>
                     <div className="pet-stats">
                         <span>Name: {pet.name}</span>
@@ -58,6 +77,9 @@ const PetPage = (props) => {
                         <span>Date weighed: {formatDate(pet.date_weighed)}</span>
                         <span>Date shed: {formatDate(pet.date_shed)}</span>
                         <span>Date eliminated: {formatDate(pet.date_eliminated)}</span>
+                        <button name="back-btn" onClick={handleClick}>
+                            {"< Back"}
+                        </button>
                     </div>
                 </>
             )}

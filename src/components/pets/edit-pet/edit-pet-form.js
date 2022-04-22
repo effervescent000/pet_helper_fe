@@ -19,20 +19,14 @@ const EditPetForm = ({ pet }) => {
         { value: "frog", label: "Frog" },
         { value: "toad", label: "Toad" },
     ];
-    // const types = [
-    //     <option value="snake">Snake</option>,
-    //     <option value="lizard">Lizard</option>,
-    //     <option value="frog">Frog</option>,
-    //     <option value="toad">Toad</option>,
-    // ];
     const typesSnakes = [
         { value: "corn snake", label: "Corn snake" },
         { value: "ball python", label: "Ball python" },
         { value: "kingsnake", label: "Kingsnake" },
     ];
     const typesLizards = [
-        <option value="gecko">Gecko</option>,
-        <option value="bearded_dragon">Bearded dragon</option>,
+        { value: "gecko", label: "Gecko" },
+        { value: "bearded dragon", label: "Bearded dragon" },
     ];
 
     const getSpeciesArray = (type) => {
@@ -42,7 +36,7 @@ const EditPetForm = ({ pet }) => {
             case "lizard":
                 return typesLizards;
             default:
-                return [];
+                return [{ value: "", label: "---" }];
         }
     };
 
@@ -50,36 +44,47 @@ const EditPetForm = ({ pet }) => {
         <Formik
             initialValues={{
                 name: pet ? pet.name : "",
-                type: pet ? pet.type : "Snake",
+                type: pet ? pet.type : "",
                 species: pet ? pet.species : "",
-                speciesArray: [{ value: "", label: "---" }],
+                speciesArray: pet ? getSpeciesArray(pet.type) : [{ value: "", label: "---" }],
                 weight: pet ? pet.weight : "",
                 feedFrequency: pet ? pet.feed_frequency : "",
                 isAlive: pet ? pet.is_alive : true,
                 notes: pet ? pet.notes : "",
 
-                dateBorn: pet ? pet.dateBorn : "",
-                dateAcquired: pet ? pet.date_acquired : "",
-                dateRemoved: pet ? pet.date_removed : "",
-                dateFed: pet ? pet.date_fed : "",
-                dateCleaned: pet ? pet.date_cleaned : "",
-                dateWeighed: pet ? pet.date_weighed : "",
-                dateShed: pet ? pet.date_shed : "",
-                dateEliminated: pet ? pet.date_eliminated : "",
+                dateBorn: pet ? (pet.date_born ? new Date(pet.date_born) : "") : "",
+                dateAcquired: pet ? (pet.date_acquired ? new Date(pet.date_acquired) : "") : "",
+                dateRemoved: pet ? (pet.date_removed ? new Date(pet.date_removed) : "") : "",
+                dateFed: pet ? (pet.date_fed ? new Date(pet.date_fed) : "") : "",
+                dateCleaned: pet ? (pet.date_cleaned ? new Date(pet.date_cleaned) : "") : "",
+                dateWeighed: pet ? (pet.date_weighed ? new Date(pet.date_weighed) : "") : "",
+                dateShed: pet ? (pet.date_shed ? new Date(pet.date_shed) : "") : "",
+                dateEliminated: pet
+                    ? pet.date_eliminated
+                        ? new Date(pet.date_eliminated)
+                        : ""
+                    : "",
             }}
             enableReinitialize
             onSubmit={(values) => {
                 if (pet) {
-                    // send to PUT endpoint
+                    axios
+                        .put(`${process.env.REACT_APP_DOMAIN}/pets/${pet.id}`, values, {
+                            withCredentials: true,
+                            headers: { "X-CSRF-TOKEN": Cookies.get("csrf_access_token") },
+                        })
+                        .then((response) => {
+                            history.push("/pets");
+                        })
+                        .catch((error) => console.log(error.response));
                 } else {
-                    console.log(values);
                     axios
                         .post(`${process.env.REACT_APP_DOMAIN}/pets/`, values, {
                             withCredentials: true,
                             headers: { "X-CSRF-TOKEN": Cookies.get("csrf_access_token") },
                         })
                         .then((response) => {
-                            history.push("/");
+                            history.push("/pets");
                         })
                         .catch((error) => console.log(error.response));
                 }
